@@ -8,6 +8,8 @@ The PIFSC Oracle Developer Environment (ODE) project was developed to provide a 
     -   URL: https://picgitlab.nmfs.local/oracle-developer-environment/pifsc-oracle-developer-environment
     -   Version: 1.0 (git tag: ODE_v1.0)
 -   [ODE Demonstration Outline](./docs/demonstration_outline.md)
+-   [ODE Repository Fork Diagram](./docs/ODE_fork_diagram.drawio.png)
+    -   [ODE Repository Fork Diagram source code](./docs/ODE_fork_diagram.drawio)
 
 # Prerequisites
 -   Have Docker Installed(of course)
@@ -27,6 +29,17 @@ docker logout container-registry.oracle.com
 docker pull container-registry.oracle.com/database/express:latest
 docker pull container-registry.oracle.com/database/ords-developer:latest
 ```
+
+## Repository Fork Diagram
+-   The ODE repository is intended to be forked for specific data systems
+-   The [ODE Repository Fork Diagram](./docs/ODE_fork_diagram.drawio.png) shows the different example and actual forked repositories that could be part of the suite of ODE repositories for different data systems
+    -   The implemented repositories are shown in blue:
+        -   [ODE](https://picgitlab.nmfs.local/oracle-developer-environment/pifsc-oracle-developer-environment)
+            -   The ODE is the first repository shown at the top of the diagram and serves as the basis for all forked repositories for specific data systems
+        -   [DSC ODE](https://picgitlab.nmfs.local/oracle-developer-environment/dsc-pifsc-oracle-developer-environment)
+        -   [Centralized Authorization System (CAS) ODE](https://picgitlab.nmfs.local/oracle-developer-environment/cas-pifsc-oracle-developer-environment)
+    -   The examples or repositories that have not been implemented yet are shown in orange  
+![ODE Repository Fork Diagram](./docs/ODE_fork_diagram.drawio.png)
 
 ## Customization Process
 -   \*Note: this process will fork the ODE parent repository and repurpose it as a project-specific ODE
