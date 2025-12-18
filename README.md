@@ -1,18 +1,27 @@
-# PIFSC DSC Oracle Developer Environment
+# PIFSC DSC Containerized Oracle Developer Environment
 
 ## Overview
-The PIFSC DSC Oracle Developer Environment (DCODE) project was developed to provide a custom containerized Oracle development environment (CODE) for the DSC.  This repository can be forked to extend the existing functionality to any data systems that depend on the DSC for both development and testing purposes.  
+The PIFSC DSC Containerized Oracle Developer Environment (DCODE) project was developed to provide a custom containerized Oracle development environment (CODE) for the DSC.  This repository can be forked to extend the existing functionality to any data systems that depend on the DSC for both development and testing purposes.  
 
 ## Resources
 -   ### DCODE Version Control Information
     -   URL: https://github.com/noaa-pifsc/PIFSC-DSC-Containerized-Oracle-Development-Environment
-    -   Version: 1.1 (git tag: DSC_CODE_v1.1)
+    -   Version: 1.2 (git tag: DSC_CODE_v1.2)
     -   Upstream repository:
         -   CODE Version Control Information:
-            -   URL: https://github.com/noaa-pifsc/PIFSC-Containerized-Oracle-Development-Environment?tab=readme-ov-file
-            -   Version: 1.1 (git tag: CODE_v1.1)
+            -   URL: https://github.com/noaa-pifsc/PIFSC-Containerized-Oracle-Development-Environment
+            -   Version: 1.2 (git tag: CODE_v1.2)
+
+## Dependencies
+\* Note: all dependencies are implemented as git submodules in the [modules](./modules) folder
 -   ### DSC Version Control Information
-    -   URL: https://picgitlab.nmfs.local/centralized-data-tools/pifsc-dsc
+    -   Version Control Information:
+        -   URL: <git@picgitlab.nmfs.local:centralized-data-tools/pifsc-dsc.git>
+        -   Database: 1.1 (Git tag: dsc_db_v1.1)
+-   ### Container Deployment Scripts (CDS) Version Control Information
+    -   Version Control Information:
+        -   URL: <git@picgitlab.nmfs.local:centralized-data-tools/pifsc-container-deployment-scripts.git>
+        -   Database: 1.1 (Git tag: pifsc_container_deployment_scripts_v1.1)
 
 ## Prerequisites
 -   See the CODE [Prerequisites](https://github.com/noaa-pifsc/PIFSC-Containerized-Oracle-Development-Environment?tab=readme-ov-file#prerequisites) for details
@@ -25,9 +34,7 @@ The PIFSC DSC Oracle Developer Environment (DCODE) project was developed to prov
 
 ## Automated Deployment Process
 -   ### Prepare the folder structure
-    -   See the CODE [Prepare the folder structure](https://github.com/noaa-pifsc/PIFSC-Containerized-Oracle-Development-Environment?tab=readme-ov-file#prepare-the-folder-structure) for details
-    -   #### DSC Preparation
-        -   The [SQL](https://picgitlab.nmfs.local/centralized-data-tools/pifsc-dsc/-/tree/main/SQL?ref_type=heads) folder is copied into a new "DSC" folder within the [docker/src](./docker/src) folder
+    -   Recursively clone the [DCODE repository](#dcode-version-control-information) to a working directory
 -   ### Build and Run the Containers 
     -   See the CODE [Build and Run the Containers](https://github.com/noaa-pifsc/PIFSC-Containerized-Oracle-Development-Environment?tab=readme-ov-file#build-and-run-the-containers) for details
     -   #### DSC Database Deployment
@@ -41,11 +48,18 @@ The PIFSC DSC Oracle Developer Environment (DCODE) project was developed to prov
     -   See the CODE [Implementation](https://github.com/noaa-pifsc/PIFSC-Containerized-Oracle-Development-Environment?tab=readme-ov-file#implementation) for details 
 -   ### Implementation Examples
     -   Database and APEX app with a single database dependency: [Centralized Authorization System (CAS) CODE project](https://github.com/noaa-pifsc/PIFSC-DSC-Containerized-Oracle-Development-Environment)
+    -   Database and docker web app with a single database dependency: [PIFSC Resource Inventory (PRI) CODE project](https://github.com/noaa-pifsc/PIFSC-PRI-Containerized-Oracle-Development-Environment)
 -   ### Upstream Updates
     -   See the CODE [Upstream Updates](https://github.com/noaa-pifsc/PIFSC-Containerized-Oracle-Development-Environment?tab=readme-ov-file#upstream-updates) for details
 
 ## Container Architecture
 -   See the CODE [container architecture documentation](https://github.com/noaa-pifsc/PIFSC-Containerized-Oracle-Development-Environment?tab=readme-ov-file/-/blob/main/README.md?ref_type=heads#container-architecture) for details
+-   ### DCODE Customizations:
+    -   [docker/.env](./docker/.env) was updated to define an appropriate APP_SCHEMA_NAME value and remove TARGET_APEX_VERSION since there is no corresponding Apex app
+    -   [custom_deployment_functions.sh](./deployment_scripts/functions/custom_deployment_functions.sh) was updated to remove the [CODE-ords.yml](./docker/CODE-ords.yml) configuration file since the ORDS service is not implemented
+    -   [custom-docker-compose.yml](./docker/custom-docker-compose.yml) was updated to implement CODE-specific mounted volume overrides 
+    -   [custom_db_app_deploy.sh](./docker/src/deployment_scripts/custom_db_app_deploy.sh) was updated to deploy the DSC database
+    -   [custom_container_config.sh](./docker/src/deployment_scripts/config/custom_container_config.sh) was updated to define DB credentials and mounted volume file paths for the DSC SQL scripts
 
 ## Connection Information
 -   See the CODE [connection information documentation](https://github.com/noaa-pifsc/PIFSC-Containerized-Oracle-Development-Environment?tab=readme-ov-file/-/blob/main/README.md?ref_type=heads#connection-information) for details
