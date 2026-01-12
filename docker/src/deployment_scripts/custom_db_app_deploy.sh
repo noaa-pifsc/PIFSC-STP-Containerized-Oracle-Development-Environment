@@ -48,7 +48,7 @@ EOF
 
 # run the container database deployment script
 sqlplus -s /nolog <<EOF
-@deploy_dev.sql
+@automated_deployments/deploy_dev_container.sql
 $TEMPL_PROJ_CREDENTIALS
 EOF
 
@@ -59,7 +59,7 @@ EOF
 
 # run the container APEX app deployment script
 sqlplus -s /nolog <<EOF
-@deploy_apex_dev.sql
+@automated_deployments/deploy_apex_dev.sql
 $TEMPL_APP_CREDENTIALS
 EOF
 
