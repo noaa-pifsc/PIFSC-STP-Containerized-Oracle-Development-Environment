@@ -17,6 +17,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 30
+    volumes:
+      - ./setup:/opt/oracle/setup_scripts  # Mount setup scripts here
   db-ords-deploy:
     image: pifsc/db-ords-deploy:latest
     build:

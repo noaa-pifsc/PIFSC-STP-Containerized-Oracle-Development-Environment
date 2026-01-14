@@ -1,0 +1,28 @@
+cd /c/Users/jesse.abdul/Documents/Version\ Control/Git/PIFSC-STP-Containerized-Oracle-Development-Environment/docker/src/cognito_scripts/
+
+# initialize the db wallet
+winpty docker exec -u 0 -it db //bin/bash //opt/oracle/setup_scripts/setup_wallet.sh
+
+# configure apex ACL/wallet
+winpty docker exec -it db sqlplus sys/[PASSWORD]@FREEPDB1 as sysdba @//opt/oracle/setup_scripts/configure_apex.sql
+
+
+# verification:
+
+	# check file existence and permissions
+	winpty docker exec -it db ls -l //opt/oracle/wallet
+
+	# verify wallet contents
+	winpty docker exec -it db //bin/bash -c "source /home/oracle/.bashrc && orapki wallet display -wallet /opt/oracle/wallet"
+	
+	# verify connectivity
+	winpty docker exec -it db sqlplus sys/[PASSWORD]@FREEPDB1 as sysdba
+	
+	
+	
+	-- This manually specifies the wallet for the request to a known endpoint using the AWS root certificate to test it immediately
+SELECT UTL_HTTP.REQUEST(
+    url => 'https://cognito-idp.us-east-1.amazonaws.com',
+    wallet_path => 'file:/opt/oracle/wallet',
+    wallet_password => NULL -- Password not needed for auto-login wallet
+) FROM DUAL;
