@@ -3,3 +3,5 @@ services:
     # define the mounted volumes for the DB/Apex apps 
     volumes:
       - ../modules/DSC/SQL:/usr/src/DSC/SQL
+      - ../modules/TP/STP/application_code:/usr/src/STP/application_code
+      - ../modules/TP/STP/SQL:/usr/src/STP/SQL

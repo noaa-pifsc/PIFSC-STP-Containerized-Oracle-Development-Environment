@@ -4,3 +4,6 @@
 [submodule "modules/CDS"]
 	path = modules/CDS
 	url = git@github.com:noaa-pifsc/PIFSC-Container-Deployment-Scripts.git
+[submodule "modules/TP"]
+	path = modules/TP
+	url = git@picgitlab.nmfs.local:centralized-data-tools/template-project.git
