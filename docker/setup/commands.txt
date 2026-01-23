@@ -26,3 +26,13 @@ SELECT UTL_HTTP.REQUEST(
     wallet_path => 'file:/opt/oracle/wallet',
     wallet_password => NULL -- Password not needed for auto-login wallet
 ) FROM DUAL;
+
+
+
+SQL Developer:
+	open post_auth_nfig.sql and run all commands with the corresponding schemas
+	
+	
+APEX:
+	create the credentials:
+		NFIG_prod

@@ -1,34 +1,51 @@
--- create procedure for post authentication (define as TEMPL_PROJ)
-CREATE OR REPLACE PROCEDURE post_auth_nfig IS
-    v_email      VARCHAR2(200);
-    v_user_role  VARCHAR2(20);
+create or replace PROCEDURE post_auth_nfig IS
+    v_error_msg  VARCHAR2(4000); 
+    v_uuid       VARCHAR2(200);
+
 BEGIN
-    -- 1. Get the username (Email) provided by Cognito
-    -- APEX automatically sets APP_USER to the email because we mapped it in the Auth Scheme
-    v_email := v('APP_USER');
+    DB_LOG_PKG.ADD_LOG_ENTRY('DEBUG', 'post_auth_nfig', 'Starting post_auth_nfig...');
 
-    -- 2. Sync with local table
-    MERGE INTO auth_app_users dest
-    USING (SELECT v_email as email FROM dual) src
-    ON (dest.app_user_name||'@noaa.gov' = src.email)
-    WHEN MATCHED THEN
-        UPDATE SET last_mod_date = SYSTIMESTAMP
-    WHEN NOT MATCHED THEN
-        INSERT (app_user_name, create_date)
-        VALUES (src.email, SYSTIMESTAMP);
+    -- Get Attributes from Application Items
+    v_uuid       := v('APP_USER');       -- Mapped from 'sub'
 
-    -- 3. (Optional) Authorization Logic
-    -- You can check if the user is allowed to log in here.
-    -- IF v_email NOT LIKE '%@mycompany.com' THEN
-    --     raise_application_error(-20001, 'Unauthorized domain.');
-    -- END IF;
+    DB_LOG_PKG.ADD_LOG_ENTRY('DEBUG', 'post_auth_nfig', 'apex_json.getvarchar2(email) is: ' || apex_json.get_varchar2('email'));
+    DB_LOG_PKG.ADD_LOG_ENTRY('DEBUG', 'post_auth_nfig', 'apex_json.getvarchar2(email_verified) is: ' || apex_json.get_varchar2('email_verified'));
+    DB_LOG_PKG.ADD_LOG_ENTRY('DEBUG', 'post_auth_nfig', 'apex_json.getvarchar2(sub) is: ' || apex_json.get_varchar2('sub'));
 
+
+    -- set the APP_EMAIL application item to the email address so it can be used to verify the user's authorization
+    apex_session_state.set_value('APP_EMAIL', apex_json.get_varchar2('email'));
+
+    DB_LOG_PKG.ADD_LOG_ENTRY('DEBUG', 'post_auth_nfig', 'apex_json.getvarchar2(identities[1].providerName) is: ' || apex_json.get_varchar2('identities[1].providerName'));
+    DB_LOG_PKG.ADD_LOG_ENTRY('DEBUG', 'post_auth_nfig', 'apex_json.getvarchar2(identities[1].providerType) is: ' || apex_json.get_varchar2('identities[1].providerType'));
+    DB_LOG_PKG.ADD_LOG_ENTRY('DEBUG', 'post_auth_nfig', 'apex_json.getvarchar2(identities[1].dateCreated) is: ' || apex_json.get_varchar2('identities[1].dateCreated'));
+
+    DB_LOG_PKG.ADD_LOG_ENTRY('DEBUG', 'post_auth_nfig', 'v(APP_EMAIL) is: ' || v('APP_EMAIL'));
+
+    -- Safety Check
+    IF v_uuid IS NULL THEN
+        DB_LOG_PKG.ADD_LOG_ENTRY('ERROR', 'post_auth_nfig', 'ABORTING: UUID is NULL');
+        RETURN;
+    END IF;
+
+    DB_LOG_PKG.ADD_LOG_ENTRY('DEBUG', 'post_auth_nfig', 'Sync Success for: ' || v('APP_EMAIL'));
+
+EXCEPTION
+    WHEN OTHERS THEN
+        v_error_msg := SQLERRM; 
+        
+	
+		DB_LOG_PKG.ADD_LOG_ENTRY('DEBUG', 'post_auth_nfig', 'CRITICAL ERROR: ' || v_error_msg);
+        COMMIT;
+        RAISE; 
 END;
 /
 
 
---grant the app schema privileges on post authentication procedure (define as TEMPL_PROJ) 
-GRANT EXECUTE ON post_auth_nfig to TEMPL_PROJ_APP;
+grant execute on post_auth_nfig to templ_proj_app;
 
---create synonym for the post authentication procedure (define as TEMPL_PROJ_APP)
-CREATE SYNONYM post_auth_nfig FOR TEMPL_PROJ.post_auth_nfig;
+
+create synonym post_auth_nfig for templ_proj.post_auth_nfig;
+
+
+
