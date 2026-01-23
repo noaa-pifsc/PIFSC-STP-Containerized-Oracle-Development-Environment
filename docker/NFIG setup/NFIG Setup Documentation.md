@@ -37,8 +37,19 @@ This document provides information about how to setup the NOAA Federated Identit
             -   Name: APP_EMAIL
             -   Scope: Application
             -   \*Note: The APP_EMAIL application item will be set to the authenticated user's email address following a successfuly NFIG login
+        -   <mark> define the post_oauth_sp procedure
+        -   <mark> create the new authentication scheme with the following values:
+        -   <mark> create an authorization scheme that utilizes the APP_EMAIL application item (use v('APP_EMAIL') to use it in queries/procedures)
+
+
+
+
+
     -   ### STP CODE Application
-        -   Import the application definition file into the desired apex workspace: [f278_nfig_version.sql](./f278_nfig_version.sql)
+        -   Clone the STP CODE project into a working directory
+            -   Switch the branch to "Branch_NFIG_implement"
+            -   Build and run the container using the [STP CODE automated deployment process](#automated-deployment-process) 
+        -   Import the application definition file into the TEMPL_PROJ_APP workspace: [f278_nfig_version.sql](./f278_nfig_version.sql)
         -   Update the existing workspace credentials (for NFIG), by executing the folllowing using a schema that has permissions on the desired workspace (e.g. parsing schema):
             -   \*Note: these credentials are not saved within the application definition file, so they need to be redefined.
             -   ```
@@ -55,4 +66,8 @@ This document provides information about how to setup the NOAA Federated Identit
                 /
                 ```
         -   Execute the []() script as the data schema (if one is defined, otherwise use the parsing schema):
+            -   <mark> run the auth_app_pkg upgrade script
+            -   <mark> run the auth_app_pkg grant script
+    
         -   Execute the following SQL commands as the parsing schema (if a data schema exists):
+            -   <mark> run the synonym creation script

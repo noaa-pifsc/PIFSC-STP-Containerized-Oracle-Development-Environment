@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-  <comment>Global ORDS settings for dev stack</comment>
-  <entry key="standalone.static.context.path">/i</entry>
-  <entry key="standalone.static.path">/opt/oracle/ords/static</entry>
+<comment>Saved on Mon Jan 12 22:51:27 UTC 2026</comment>
+<entry key="database.api.enabled">true</entry>
+<entry key="mongo.enabled">true</entry>
+<entry key="standalone.access.log">/tmp/ords_access_logs/</entry>
+<entry key="standalone.static.context.path">/i</entry>
+<entry key="standalone.static.path">/opt/oracle/ords/static</entry>
 </properties>
