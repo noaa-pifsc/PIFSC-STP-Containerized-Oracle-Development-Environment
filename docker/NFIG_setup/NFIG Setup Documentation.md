@@ -13,11 +13,9 @@ This document provides information about how to setup the NOAA Federated Identit
     -   ### New/Existing Apex Application
         -   #### Server Setup
             -   create/setup Oracle Wallet 
-                -   [setup_wallet.sh](./setup_wallet.sh) was used to create the Oracle wallet, download the AWS certificate, and add it to the wallet.  This was intended for a new Oracle wallet setup on a blank container database
-                -   \*Note: this was executed with the root account on the oracle database
+                -   [setup_wallet.sh](./setup_wallet.sh) was executed with the root account on the oracle database to create the Oracle wallet, download the AWS certificate, and add it to the wallet.  This was intended for a new Oracle wallet setup on a blank container database
             -   configure Apex for AWS Cognito endpoint
-                -   [configure_apex_AWS_cognito.sql](./configure_apex_AWS_cognito.sql) was used to create and configure an ACL for the Apex installation for AWS Cognito using the Oracle wallet that was created.
-                    -   \*Note: this should be executed with the SYSDBA account
+                -   [configure_apex_AWS_cognito.sql](./configure_apex_AWS_cognito.sql) was executed with the SYSDBA account to create and configure an ACL for the Apex installation for AWS Cognito using the Oracle wallet that was created.
         -   \*Note: If the Apex application is not using a separate parsing schema for the application that access objects in an external data schema then use the data schema each time the "parsing schema" is mentioned in the instructions below: 
         -   Define the workspace credentials (for NFIG), by executing the following code using a schema that has permissions on the desired workspace (parsing schema):
             -   \*Note these credentials can be used across multiple apps within the workspace

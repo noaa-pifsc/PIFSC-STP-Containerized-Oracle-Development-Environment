@@ -9,6 +9,8 @@
 WALLET_DIR="/opt/oracle/wallet"
 AMAZON_CA_URL="https://www.amazontrust.com/repository/AmazonRootCA1.pem"
 CERT_FILE="${WALLET_DIR}/AmazonRootCA1.pem"
+# replace [WALLET_PW] with the actual wallet password
+WALLET_PW="[WALLET_PW]"
 
 echo "--- Starting Wallet Setup ---"
 
@@ -35,11 +37,11 @@ source /home/oracle/.bashrc
 
 echo "Creating Oracle Wallet..."
 # Create the wallet with auto_login enabled (cwallet.sso) so the DB can read it without a password
-orapki wallet create -wallet "$WALLET_DIR" -pwd "[WALLET_PW]" -auto_login
+orapki wallet create -wallet "$WALLET_DIR" -pwd "$WALLET_PW" -auto_login
 
 # 5. Add the Certificate
 echo "Importing Amazon Root CA into Wallet..."
-orapki wallet add -wallet "$WALLET_DIR" -trusted_cert -cert "$CERT_FILE" -pwd "WalletPass123!"
+orapki wallet add -wallet "$WALLET_DIR" -trusted_cert -cert "$CERT_FILE" -pwd "$WALLET_PW"
 
 # 6. Set Permissions
 # Crucial: The Oracle Database user must be able to read these files
@@ -48,4 +50,4 @@ chmod 600 "$WALLET_DIR"/*
 
 echo "--- Wallet Setup Complete ---"
 echo "Wallet Location: $WALLET_DIR"
-orapki wallet display -wallet "$WALLET_DIR" -pwd "[WALLET_PW]"
+orapki wallet display -wallet "$WALLET_DIR" -pwd "$WALLET_PW"
