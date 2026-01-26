@@ -2,6 +2,10 @@ services:
   db:
     volumes:
       - db-vol:/opt/oracle/oradata
+      # Keep the wallet contents saved so it doesn't need to be recreated each time
+      - ./wallet_data:/opt/oracle/wallet
+      # Map the wallet script to the startup folder so it automtically runs on startup
+      - ./NFIG_setup/setup_wallet.sh:/opt/oracle/scripts/startup/setup_wallet.sh
 volumes:
   db-vol:
     name: db-vol

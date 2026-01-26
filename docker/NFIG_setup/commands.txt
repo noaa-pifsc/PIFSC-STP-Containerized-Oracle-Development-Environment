@@ -1,4 +1,4 @@
-cd /c/Users/jesse.abdul/Documents/Version\ Control/Git/PIFSC-STP-Containerized-Oracle-Development-Environment/docker/src/cognito_scripts/
+cd /c/Users/jesse.abdul/Documents/Version\ Control/Git/PIFSC-STP-Containerized-Oracle-Development-Environment/docker/NFIG_setup/
 
 # initialize the db wallet
 winpty docker exec -u 0 -it db //bin/bash //opt/oracle/setup_scripts/setup_wallet.sh

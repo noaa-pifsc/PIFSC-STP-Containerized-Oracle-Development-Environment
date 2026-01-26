@@ -2,6 +2,17 @@
 
 echo "running the custom database and/or application deployment scripts"
 
+# setup ACL for AWS Cognito
+	echo "setup ACL for AWS Cognito"
+	
+	# run the AWS cognito setup script
+sqlplus -s /nolog <<EOF
+CONNECT $SYS_CREDENTIALS
+@/usr/src/configure_apex_AWS_cognito.sql
+DISCONNECT
+EXIT
+EOF
+
 # run each of the sqlplus scripts to deploy the schemas, objects for each schema, applications, etc.
 	echo "Create the DSC schemas"
 	

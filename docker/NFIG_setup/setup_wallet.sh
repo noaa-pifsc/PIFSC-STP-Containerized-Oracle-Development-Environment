@@ -35,7 +35,7 @@ source /home/oracle/.bashrc
 
 echo "Creating Oracle Wallet..."
 # Create the wallet with auto_login enabled (cwallet.sso) so the DB can read it without a password
-orapki wallet create -wallet "$WALLET_DIR" -pwd "WalletPass123!" -auto_login
+orapki wallet create -wallet "$WALLET_DIR" -pwd "[WALLET_PW]" -auto_login
 
 # 5. Add the Certificate
 echo "Importing Amazon Root CA into Wallet..."
@@ -48,4 +48,4 @@ chmod 600 "$WALLET_DIR"/*
 
 echo "--- Wallet Setup Complete ---"
 echo "Wallet Location: $WALLET_DIR"
-orapki wallet display -wallet "$WALLET_DIR" -pwd "WalletPass123!"
+orapki wallet display -wallet "$WALLET_DIR" -pwd "[WALLET_PW]"

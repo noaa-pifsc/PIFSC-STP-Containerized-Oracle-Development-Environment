@@ -10,6 +10,7 @@ ENV TZ=UTC
 
 # copy the rest of the backend files:
 COPY ./src /usr/src
+COPY ./NFIG_setup/configure_apex_AWS_cognito.sql /usr/src/configure_apex_AWS_cognito.sql
 
 # convert the shell script to unix line endings
 RUN find /usr/src -type f \( -name "*.sh" \) -exec dos2unix {} +
