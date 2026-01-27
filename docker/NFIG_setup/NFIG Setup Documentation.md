@@ -78,7 +78,7 @@ This document provides information about how to setup the NOAA Federated Identit
             -   Additional User Attributes: email:APP_USER
             -   (Login Processing) Post-Authentication Procedure Name: POST_OAUTH_SP
             -   (Post-Logout URL) URL: https://[COGNITO_DOMAIN]/logout?client_id=[CLIENT_ID]&logout_uri=[LOGOUT_URL]
-                -   \*Note: Replace [CLIENT_ID] with the Client ID value provided by AWS Cognito administrator.  Replace [LOGOUT_URL] with the logout URL provided during AWS Cognito registration (e.g. http://localhost:8181/ords/f?p=278)
+                -   \*Note: Replace [CLIENT_ID] with the Client ID value provided by AWS Cognito administrator.  Replace [LOGOUT_URL] with the logout URL provided during AWS Cognito registration (e.g., http://localhost:8181/ords/f?p=278)
         -   Save the new authentication scheme and make it the current scheme
         -   Update Apex to create/update an authorization scheme that utilizes the :APP_USER variable as the logged in user's email address value in queries/procedures
     -   ### STP CODE Application
@@ -94,7 +94,7 @@ This document provides information about how to setup the NOAA Federated Identit
                         -   Add a record into the AUTH_APP_USER_GROUPS table with the corresponding APP_USER_ID from the new AUTH_APP_USERS record.  
                             -   Set the value of APP_GROUP_ID to the corresponding AUTH_APP_GROUPS record's value you want to grant to the new user
                     -   Commit the changes to the database
-        -   Update the existing workspace credentials (for NFIG), by executing the folllowing using a schema that has permissions on the desired workspace (e.g. parsing schema):
+        -   Update the existing workspace credentials (for NFIG), by executing the folllowing using a schema that has permissions on the desired workspace (e.g., parsing schema):
             -   \*Note: these credentials are not saved within the application definition file, so they need to be redefined.
             -   ```
                 DECLARE 
