@@ -62,12 +62,12 @@ This document provides information about how to setup the NOAA Federated Identit
                 -   \*Note: The APP_UUID application item will be set to the value of "sub" following a successfuly NFIG login
         -   define the post_oauth_sp procedure by executing the [POST_OAUTH_SP.sql](./POST_OAUTH_SP.sql) script in the data schema (if a separate parsing schema is used) 
             -   If a separate parsing schema is used, grant the parsing schema EXECUTE access to POST_AUTH_SP by executing the following command with the data schema (replace [PARSING_SCHEMA] with the parsing schema name):
-                -   `GRANT EXECUTE ON POST_AUTH_SP to [PARSING_SCHEMA];`
+                -   `GRANT EXECUTE ON POST_OAUTH_SP to [PARSING_SCHEMA];`
             -   If a separate parsing schema is used, create the synonym in the parsing schema for the POST_AUTH_SP procedure by executing the following command with the parsing schema  (replace [DATA_SCHEMA] with the data schema name):
-                -   `CREATE SYNONYM POST_AUTH_SP FOR [DATA_SCHEMA].POST_AUTH_SP;`
+                -   `CREATE SYNONYM POST_OAUTH_SP FOR [DATA_SCHEMA].POST_OAUTH_SP;`
         -   Create the new authentication scheme with the following values (replace [COGNITO_DOMAIN] with the cognito domain provided by the AWS Cognito Administrator):
             -   Scheme Type: Social Sign-In
-            -   Credential Store: NFIG_OAUTH
+            -   Credential Store: NFIG_oauth
             -   Authentication Provider: Generic OAuth2 Provider
             -   Authorization Endpoint URL: https://[COGNITO_DOMAIN]/oauth2/authorize
             -   Token Endpoint URL: https://[COGNITO_DOMAIN]/oauth2/token
@@ -76,11 +76,11 @@ This document provides information about how to setup the NOAA Federated Identit
             -   Scope: email,openid
             -   Username: #sub# (#APEX_AUTH_NAME#)
             -   Additional User Attributes: email:APP_USER
-            -   (Login Processing) Post-Authentication Procedure Name: POST_AUTH_SP
+            -   (Login Processing) Post-Authentication Procedure Name: POST_OAUTH_SP
             -   (Post-Logout URL) URL: https://[COGNITO_DOMAIN]/logout?client_id=[CLIENT_ID]&logout_uri=[LOGOUT_URL]
                 -   \*Note: Replace [CLIENT_ID] with the Client ID value provided by AWS Cognito administrator.  Replace [LOGOUT_URL] with the logout URL provided during AWS Cognito registration (e.g. http://localhost:8181/ords/f?p=278)
         -   Save the new authentication scheme and make it the current scheme
-        -   Update Apex to create/update an authorization scheme that utilizes the APP_EMAIL application item (use :APP_USER to use the logged in user's email address value in queries/procedures)
+        -   Update Apex to create/update an authorization scheme that utilizes the :APP_USER variable as the logged in user's email address value in queries/procedures
     -   ### STP CODE Application
         -   Clone the STP CODE project into a working directory
             -   Switch the branch to "Branch_NFIG_implement" and recursively update the git submodules
