@@ -84,15 +84,16 @@ This document provides information about how to setup the NOAA Federated Identit
     -   ### STP CODE Application
         -   Clone the STP CODE project into a working directory
             -   Switch the branch to "Branch_NFIG_implement" and recursively update the git submodules
-            -   Build and run the container using the [STP CODE automated deployment process](#automated-deployment-process) 
-            -   Connect to the container database's TEMPL_PROJ schema
-                -   Add the new user record:
-                    - Add a record into the AUTH_APP_USERS table with the corresponding login email in the AUTH_APP_USERS.APP_USER_NAME field
-                        -   Set the value of APP_USER_ACTIVE_YN = 'Y' 
-                -   Add the new user role record:
-                    -   Add a record into the AUTH_APP_USER_GROUPS table with the corresponding APP_USER_ID from the new AUTH_APP_USERS record.  
-                        -   Set the value of APP_GROUP_ID to the corresponding AUTH_APP_GROUPS record's value you want to grant to the new user
-                -   Commit the changes to the database
+            -   Build and run the container using the [STP CODE automated deployment process](../../README.md#automated-deployment-process) 
+            -   Configure authorized users:
+                -   Connect to the container database's TEMPL_PROJ schema
+                    -   Add the new user record:
+                        - Add a record into the AUTH_APP_USERS table with the corresponding login email in the AUTH_APP_USERS.APP_USER_NAME field
+                            -   Set the value of APP_USER_ACTIVE_YN = 'Y' 
+                    -   Add the new user role record:
+                        -   Add a record into the AUTH_APP_USER_GROUPS table with the corresponding APP_USER_ID from the new AUTH_APP_USERS record.  
+                            -   Set the value of APP_GROUP_ID to the corresponding AUTH_APP_GROUPS record's value you want to grant to the new user
+                    -   Commit the changes to the database
         -   Update the existing workspace credentials (for NFIG), by executing the folllowing using a schema that has permissions on the desired workspace (e.g. parsing schema):
             -   \*Note: these credentials are not saved within the application definition file, so they need to be redefined.
             -   ```
