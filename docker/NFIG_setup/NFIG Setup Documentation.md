@@ -7,6 +7,7 @@ This document provides information about how to setup the NOAA Federated Identit
 -   This documentation was developed using Apex version 23.2
 
 ## Resources
+-   [NFIG STP APEX application export](https://github.com/noaa-pifsc/PIFSC-Template-Project/blob/fcf9c912725bb55f002550f0501277f8de3cc4e7/STP/application_code/f278.sql)
 
 ## Procedure
 -   ### Apex Implementation
