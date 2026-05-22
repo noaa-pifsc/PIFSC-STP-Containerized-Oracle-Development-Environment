@@ -4,3 +4,6 @@
 [submodule "projects/DSC/modules/DSC"]
 	path = projects/DSC/modules/DSC
 	url = git@github.com:noaa-pifsc/PIFSC-DSC.git
+[submodule "projects/STP/modules/STP"]
+	path = projects/STP/modules/STP
+	url = git@github.com:noaa-pifsc/PIFSC-Template-Project.git
