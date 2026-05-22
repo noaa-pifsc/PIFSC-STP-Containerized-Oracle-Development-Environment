@@ -1,6 +1,16 @@
 X merge upstream changes from Branch_apex_upgrade
 
 
+
+_ update DSC submodule to point at github
+	_ CODE DSC
+	_ CODE CEN_UTILS
+	_ CODE CAS
+	_ ...
+
+
+
+
 X test the different deployment/restart scenarios (tested on 12/2/25)
 	X dev
 		X new deployment
